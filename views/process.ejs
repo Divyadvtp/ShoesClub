@@ -1,0 +1,101 @@
+<%- include('includes/header.ejs') %> <!-- Include common header file in process.ejs file -->
+
+<h2 id="receipt">Receipt</h2>
+<!-- receipt created using grid div -->
+<div class="custContainer">
+    <div class="custInfo">
+        <!-- displaying values for name, email, phone, address, city and province and product's quantity using <%= %> using ejs syntax   -->
+        <div>Name: </div>
+        <div><%= name %></div>
+        <div>Email:</div>
+        <div><%= email %></div>
+        <div>Phone:</div>
+        <div><%= phone %></div>
+        <div>Address:</div>
+        <div><%= address %></div>
+        <div>City:</div>
+        <div><%= city %></div>
+        <div>Province:</div>
+        <div><%= province %></div>
+    </div>
+    <div class="custProdInfo">
+        <table>
+            <tr>
+                <th>Product Name</th>
+                <th>Quantity</th>
+                <th>Unit Price</th>
+                <th>Total Price</th>
+            </tr>
+            <!-- if condition is given to check if the product's quantities are greater than zero -->
+            <!-- product's price will be display when quantity value is greater than zero -->
+            <!-- toFixed(2) is used to round the decimal value to just 2 digits after decimal point-->
+            
+            <% if(sneakers > 0) { %>
+
+            <tr>
+                <td style="font-size: 12.5px;">Sneaker Shoes</td>
+                <td style="text-align: center;"><%= sneakers %></td>
+                <td style="text-align: right;">$<%= sneakerCost %></td>
+                <td style="text-align: right;">$<%= snkeakerSubtotal.toFixed(2) %></td>
+            </tr>
+            <%
+            }
+            %>
+            
+            <% if(running > 0) { %>
+            <tr>
+                <td style="font-size: 12.5px;">Running Shoes</td>
+                <td style="text-align: center;"><%= running %></td>
+                <td style="text-align: right;">$<%= runningCost %></td>
+                <td style="text-align: right;">$<%= runningSubtotal.toFixed(2) %></td>
+            </tr>
+            <%
+            }
+            %>
+
+            <% if(ankleBoot > 0) { %>
+            <tr>
+                <td style="font-size: 12.5px;">Ankle Boot</td>
+                <td style="text-align: center;"><%= ankleBoot %></td>
+                <td style="text-align: right;">$<%= ankleCost %></td>
+                <td style="text-align: right;">$<%= ankleSubtotal.toFixed(2) %></td>
+            </tr>
+            <%
+            }
+            %>
+
+            <% if(hikingBoot > 0) { %>
+            <tr>
+                <td style="font-size: 12.5px;">Hiking Boot</td>
+                <td style="text-align: center;"><%= hikingBoot %></td>
+                <td style="text-align: right;">$<%= hikingCost %></td>
+                <td style="text-align: right;">$<%= hikingSubtotal.toFixed(2) %></td>
+            </tr>
+            <%
+            }
+            %>
+
+            <tr>
+                <th  colspan="3" style="text-align: right;">Sub Total</th>
+                <td style="text-align: right;">$<%= subTotal.toFixed(2) %></td>
+            </tr>
+            <tr>
+                <th  colspan="3" style="text-align: right;">GST (<%= province %>:<%= stateTax %>)</th>
+                <td style="text-align: right;">$<%= gst.toFixed(2)  %></td>
+            </tr>
+            <tr>
+                <th  colspan="3" style="text-align: right;">Total</th>
+                <td style="text-align: right;">$<%= total.toFixed(2)  %></td>
+            </tr>
+        </table>
+    </div>
+</div>
+<!-- footer is taken differently here in order to make it's position absolute -->
+<section>
+    <footer style="bottom: 0;position: absolute;">
+        <p>&copy;Divya Patel, 2022</p>
+    </footer>
+
+</section>
+
+<%- include('includes/footer.ejs') %> <!-- Include common footer with closing tags file in process.ejs file -->

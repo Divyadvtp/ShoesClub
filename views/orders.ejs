@@ -1,0 +1,40 @@
+<!-- render common header file -->
+
+<%- include('includes/header') %>
+<main>
+<h1 class="orderHeader">List of Orders</h1>
+    <table class="listTable">
+        <tr>
+            <th>Name</th>
+            <th>Phone</th>
+            <th>Sub Total</th>
+            <th>State GST(%)</th>
+            <th>Total</th>
+            <th>View</th>
+        </tr>
+        
+        <!-- send array of this object and fetch data from it  -->
+         <%
+        for(orderdata of orderdatas)
+        {
+        %>
+        <tr>
+            <td><%= orderdata.name %></td>
+            <td><%= orderdata.phone %></td>
+            <td><%= orderdata.subTotal.toFixed(2) %></td>
+            <td><%= orderdata.stateTax %></td>
+            <td><%= orderdata.total.toFixed(2) %></td>
+            <td><a href="/view/<%= orderdata._id %>" target="_blank">View</a></td> 
+            <!-- when click on view it will check order data id stored in database -->
+        </tr>
+        <% } %>
+    </table>
+
+    <section>
+        <footer style="bottom: 0;position: absolute;">
+            <p>&copy;Divya Patel, 2022</p>
+        </footer>
+    </section>
+</main>
+<%- include('includes/footer') %> 
+ <!-- render common footer with closing tags file in form.ejs file -->

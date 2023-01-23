@@ -1,0 +1,147 @@
+<%- include('includes/header.ejs') %> <!-- Include common header file in form.ejs file -->
+
+<!-- preserve form data when reloading page on getting error messages -->
+<% 
+if(typeof(userData) == 'undefined') {
+    userData = {};
+    userData.name = '';
+    userData.email = '';
+    userData.phone = '';
+    userData.address = '';
+    userData.city = '';
+    userData.province = '';
+    userData.sneakers = '';
+    userData.running = '';
+    userData.ankleBoot = '';
+    userData.hikingBoot = ''; 
+}
+%>
+<!-- main tag inside the body for main content on form/home page -->
+<main class="items">
+    <!-- form tag for displaying input and label field as well as action will be done on button inside the form tag -->
+    <form name="myform" method="Post" action="/process">
+        <!-- Display product images with quantity input fields, labels and product price-->
+        <div class="Items">
+            <h2>Different Styles of Shoes!</h2>
+            <div class="grid">
+                <div class="shoes">
+                    <img src="/images/sneakers.jpg" alt="Sneaker Shoes" />
+                    <!-- image referrence: https://www.themanual.com/wp-content/uploads/sites/9/2020/12/florsheim-crossover-white-sneaker-for-men.jpg?fit=800%2C800&p=1  -->
+                    <label>Sneakers Shoes</label>
+                    <p id="sneakerPrice">$60</p>
+                    <!-- settin value attribute in input field to retain the value on reload of the page -->
+                    <input type="text"  id="sneakers" value="<%= userData.sneakers %>" name="sneakers" placeholder="10" />
+                </div>
+                <div class="shoes">
+                    <img src="/images/running.jpg" alt="Sneaker Shoes" />
+                    <!-- image referrence: https://img.freepik.com/premium-photo/blue-sport-running-shoes-white-background-sports-shoes-blue-color-trendy-sport-footwear_256259-2485.jpg?w=2000 -->
+                    <label>Running Shoes</label>
+                    <p id="RunningPrice">$45.99</p>
+                     <!-- settin value attribute in input field to retain the value on reload of the page -->
+                    <input type="text" id="running" value="<%= userData.running %>" name="running" placeholder="10" />
+                </div>
+                <div class="shoes">
+                    <img src="/images/ankle_boot.jpg" alt="Sneaker Shoes" />
+                    <!-- image referrence: https://media.istockphoto.com/id/1190007041/photo/modern-womens-ankle-boots-rich-red-brown-color-isolated-on-a-white-background.jpg?s=612x612&w=0&k=20&c=8DF3vNC_XLkb8xijtid_mWpvvdkV-6V2Q3Nlj1EiQC4= -->
+                    <label>Ankle Boots</label>
+                    <p id="AnkleBootsPrice">$30</p>
+                     <!-- settin value attribute in input field to retain the value on reload of the page -->
+                    <input type="text" id="ankleBoot" value="<%= userData.ankleBoot %>" name="ankleBoot" placeholder="10" />
+                </div>
+                <div class="shoes">
+                    <img src="/images/hiking_boot.jpg" alt="Sneaker Shoes" />
+                    <!-- image referrence: https://www.themanual.com/wp-content/uploads/sites/9/2022/04/mens-timberland-hiking-boot.jpg?fit=800%2C800&p=1 -->
+                    <label>Hiking Boots</label>
+                    <p id="hikingBootsPrice">$84.99</p>
+                     <!-- settin value attribute in input field to retain the value on reload of the page -->
+                    <input type="text" id="hikingBoot" value="<%= userData.hikingBoot %>" name="hikingBoot" placeholder="10" />
+                </div>
+            </div>
+                
+        </div>
+    
+        <div class="userInfo">
+            <h2>Enter your informations</h2>
+            <div class="container">
+                <div class="fields">
+                    <label>Name</label><br>
+                     <!-- settin value attribute in input field to retain the value on reload of the page -->
+                    <input id="name" value="<%= userData.name %>" placeholder="First Last" type="text" name="name">
+                </div>
+                <div class="fields">
+                    <label>Email</label><br>
+                     <!-- settin value attribute in input field to retain the value on reload of the page -->
+                    <input id="email" value="<%= userData.email %>" placeholder="email@domain.com" type="text" name="email">
+                </div>
+                <div class="fields">
+                    <label>Phone</label><br>
+                     <!-- settin value attribute in input field to retain the value on reload of the page -->
+                    <input id="phone" value="<%= userData.phone %>" placeholder="123-123-1234" type="text" name="phone">
+                </div>
+                <div class="fields">
+                    <label>Address</label><br>
+                     <!-- settin value attribute in input field to retain the value on reload of the page -->
+                    <input id="address" value="<%= userData.address %>" placeholder="12 university Ave." type="text" name="address"><br/>
+                </div>
+                <div class="fields">
+                    <label>City</label><br>
+                     <!-- settin value attribute in input field to retain the value on reload of the page -->
+                    <input id="city" value="<%= userData.city %>" placeholder="Toronto" type="text" name="city"><br/>
+                </div>
+                <div class="fields">
+                    <label>Provice</label><br>
+                    <select name="province" id="province">
+                        <option value="">---- Select Province ----</option>
+                        <option value="AB">Alberta</option>
+	                    <option value="BC">British Columbia</option>
+	                    <option value="MB">Manitoba</option>
+	                    <option value="NB">New Brunswick</option>
+	                    <option value="NL">Newfoundland and Labrador</option>
+	                    <option value="NS">Nova Scotia</option>
+	                    <option value="NT">Northwest Territories</option>
+	                    <option value="NU">Nunavut</option>
+	                    <option value="ON">Ontario</option>
+	                    <option value="PE">Prince Edward Island</option>
+	                    <option value="QC">Quebec</option>
+	                    <option value="SK">Saskatchewan</option>
+	                    <option value="YT">Yukon</option>
+	                </select>
+                </div>
+            </div>
+        </div>
+        <!-- checkout button with type submit -->
+        <div class="checkout">
+            <button type="submit" name="submit">Checkout</button>
+        </div>
+        
+    </form>
+    
+    <section class="w50">
+        <!-- showing error messages -->
+        <p id="errors">
+        <%
+            <!-- showing error message when type of errors are not undefine -->
+            if(typeof(errors) != 'undefined') {
+                
+                <!-- for loop for all error that exist -->
+                for(error of errors) {
+                    %>
+                    <%= error.msg %> <br>
+    
+                    <%
+                }
+    
+            }
+        %>
+        </p>
+    
+    </section>
+    <!-- footer for form/home page -->
+    <section>
+        <footer>
+            <p>&copy;Divya Patel, 2022</p>
+        </footer>
+    
+    </section>
+</main>
+<%- include('includes/footer.ejs') %> <!-- Include common footer with closing tags file in form.ejs file -->
